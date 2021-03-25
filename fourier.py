@@ -69,6 +69,9 @@ def trigonometrical_coeffs(k_harmonics_no: int, param: str) -> float:
         return 2 / T * calculate_harmonics_via_integrating(0, T, ak_intergating_val_cos, k_harmonics_no)
 
 
+a0 = 2 / T * calculate_harmonics_via_integrating(0, T, ak_intergating_val_cos, k_harmonics_no=0)
+A0 = a0/2
+
 '''
 for table
 
@@ -83,22 +86,19 @@ phsii = ["%.3f" % math.atan(bk[n] / ak[n]) for n in range(len(bk))]
 print('\nharmonics: {} \nphsii:     {} \nak:        {} \nbk:        {}'.format(harmonics, phsii, ak, bk))
 
 
-a0 = 2 / T * calculate_harmonics_via_integrating(0, T, ak_intergating_val_cos, k_harmonics_no=0)
 numb_of_harmonics = math.ceil(delta_Fk / F1)
-energetic_powee_spectrum = (a0/2) ** 2 + 0.5 * sum([bk[i] ** 2 + ak[i] ** 2 for i in range(numb_of_harmonics)])
+energetic_powee_spectrum = A0 ** 2 + 0.5 * sum([bk[i] ** 2 + ak[i] ** 2 for i in range(numb_of_harmonics)])
 full_average_power = 1 / T * calculate_harmonics_via_integrating(0, T, signal_to_the_second_power, k_harmonics_no=0)
 absolute_error = (abs(full_average_power - energetic_powee_spectrum))
 relative_error = absolute_error/ full_average_power
 
 
 print("")
-print("Zero coefficient a0..................................{}".format(a0))
 print("Number of harmonics ................................ {}".format(numb_of_harmonics))
 print("Power of signal (energetic spectrum).................{}".format(energetic_powee_spectrum))
 print("Average power of signal..............................{}".format(full_average_power))
 print("Absolute error.......................................{}".format(absolute_error))
 print("Relative error.......................................{}".format(relative_error))
-
 
 
 '''
@@ -112,14 +112,17 @@ plt.figure(1)
 plt.plot(time_points, voltages)
 plt.xlabel('Time, s')
 plt.ylabel('Signal, V')
+plt.xlim(xmin=time_points[0])
 plt.grid()
 
 
 plt.figure(2)
 plt.plot([harm_n for harm_n in range(1, 21)],
          [math.sqrt(bk[i] ** 2 + ak[i] ** 2) for i in range(20)])
+plt.xlim()
 plt.xlabel('No. of Harmonics')
 plt.ylabel('Amplitude of Harmonics, В')
+plt.xlim(xmin=1)
 plt.grid()
 
 plt.figure(3)
@@ -127,12 +130,14 @@ plt.plot([harm_n for harm_n in range(1, 21)],
          [bk[i] ** 2 + ak[i] ** 2 for i in range(20)])
 plt.xlabel('No. of Harmonics')
 plt.ylabel('Power of signal, watt')
+plt.xlim(xmin=1)
 plt.grid()
 
 
 plt.figure(4)
 plt.plot([harm_n for harm_n in range(1, 21)],
          [math.atan(bk[i] / ak[i]) for i in range(20)])
+plt.xlim(xmin=1)
 plt.xlabel('Т')
 plt.ylabel('Ψk')
 plt.grid()
