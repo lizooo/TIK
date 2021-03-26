@@ -104,6 +104,8 @@ print("Relative error.......................................{}".format(relative_
 '''
 plotter
 '''
+row =[a0]
+
 
 time_points = [(t * 0.00001 - 0.02) for t in range(4000)]
 voltages = [S_from_t(t) for t in time_points]
@@ -112,32 +114,33 @@ plt.figure(1)
 plt.plot(time_points, voltages)
 plt.xlabel('Time, s')
 plt.ylabel('Signal, V')
-plt.xlim(xmin=time_points[0])
+# plt.xlim(xmin=time_points[0])
 plt.grid()
+
 
 
 plt.figure(2)
-plt.plot([harm_n for harm_n in range(1, 21)],
-         [math.sqrt(bk[i] ** 2 + ak[i] ** 2) for i in range(20)])
+plt.plot([harm_n for harm_n in range( 21)],
+          row+([math.sqrt(bk[i] ** 2 + ak[i] ** 2) for i in range(20)]))
 plt.xlim()
 plt.xlabel('No. of Harmonics')
 plt.ylabel('Amplitude of Harmonics, В')
-plt.xlim(xmin=1)
+# plt.xlim(xmin=1)
 plt.grid()
 
 plt.figure(3)
-plt.plot([harm_n for harm_n in range(1, 21)],
-         [bk[i] ** 2 + ak[i] ** 2 for i in range(20)])
+plt.plot([harm_n for harm_n in range(21)],
+         row+([bk[i] ** 2 + ak[i] ** 2 for i in range(20)]))
 plt.xlabel('No. of Harmonics')
 plt.ylabel('Power of signal, watt')
-plt.xlim(xmin=1)
+# plt.xlim(xmin=1)
 plt.grid()
 
 
 plt.figure(4)
 plt.plot([harm_n for harm_n in range(1, 21)],
          [math.atan(bk[i] / ak[i]) for i in range(20)])
-plt.xlim(xmin=1)
+# plt.xlim(xmin=1)
 plt.xlabel('Т')
 plt.ylabel('Ψk')
 plt.grid()
