@@ -70,7 +70,7 @@ def trigonometrical_coeffs(k_harmonics_no: int, param: str) -> float:
 
 
 a0 = 2 / T * calculate_harmonics_via_integrating(0, T, ak_intergating_val_cos, k_harmonics_no=0)
-A0 = a0/2
+A0 = a0
 
 '''
 for table
